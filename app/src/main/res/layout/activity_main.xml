@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:baselineAligned="false"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:text="Player"
+            android:textSize="20dp"
+            android:id="@+id/playerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_weight="0.23"
+            android:gravity="center_horizontal" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/playerCard1View"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cardback"
+            android:visibility="visible"/>
+        <ImageView
+            android:id="@+id/playerCard2View"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cardback"
+            android:visibility="visible"/>
+        <ImageView
+            android:id="@+id/playerCard3View"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cardback"
+            android:visibility="visible"/>
+        <ImageView
+            android:id="@+id/playerCard4View"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cardback"
+            android:visibility="visible"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:text="Computer"
+            android:textSize="20dp"
+            android:id="@+id/computerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_weight="0.90"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="138dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/computerCard1View"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cardback" />
+        <ImageView
+            android:id="@+id/computerCard2View"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cardback" />
+        <ImageView
+            android:id="@+id/computerCard3View"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cardback" />
+        <ImageView
+            android:id="@+id/computerCard4View"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cardback" />
+    </LinearLayout>
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:text="The Winner is:-"
+            android:textSize="30dp"
+            android:id="@+id/resultText"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/holo_green_light"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:weightSum="1"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/dealButton"
+            android:width="100dp"
+            android:height="20dp"
+            android:onClick="onDealButtonClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Game"
+            android:layout_weight="0.14">
+        </Button>
+
+        <Button
+            android:id="@+id/twistButton"
+            android:width="100dp"
+            android:height="20dp"
+            android:onClick="onTwistButtonClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Twist"
+            android:layout_weight="0.14"></Button>
+
+
+        <Button
+            android:id="@+id/stickButton"
+            android:width="100dp"
+            android:height="20dp"
+            android:onClick="onStickButtonClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stick"
+            android:layout_weight="0.14"></Button>
+    </LinearLayout>
+
+</LinearLayout>
