@@ -94,6 +94,8 @@ public class BlackJackActivity extends AppCompatActivity {
         dealButtonLayout = (LinearLayout) findViewById(R.id.buttonLayout01);
         twistnstickButtonLayout  = (LinearLayout) findViewById(R.id.buttonLayout02);
         newgameButtonLayout  = (LinearLayout) findViewById(R.id.buttonLayout03);
+
+        dealButton.performClick();
     }
 
     public void onDealButtonClicked(View button) {
@@ -112,7 +114,7 @@ public class BlackJackActivity extends AppCompatActivity {
         playerhand.addCard(deck.dealCard());
         playerhand.addCard(deck.dealCard());
 
-        //Display in Log
+        //Display in Log and to user as toast
         Log.d(getClass().toString(), "Player 1 - " + playerhand.getCard(0).toString());
         Toast.makeText(getApplicationContext(), playerhand.getCard(0).toPrettyString(), Toast.LENGTH_LONG).show();
         Log.d(getClass().toString(), "Player 2 - " + playerhand.getCard(1).toString());
@@ -161,6 +163,7 @@ public class BlackJackActivity extends AppCompatActivity {
             case 3:
                 // 3rd Card in Hand
                 Log.d(getClass().toString(), "Player 3 - " + playerhand.getCard(2).toString());
+                Toast.makeText(getApplicationContext(), playerhand.getCard(2).toPrettyString(), Toast.LENGTH_LONG).show();
                 playerCard3View.setVisibility(View.VISIBLE);
                 Drawable playerCard3Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(2).toString(), "drawable", getPackageName()), null);
                 playerCard3View.setImageDrawable(playerCard3Id);
@@ -169,6 +172,7 @@ public class BlackJackActivity extends AppCompatActivity {
             case 4:
                 // 4th Card in Hand
                 Log.d(getClass().toString(), "Player 4 - " + playerhand.getCard(3).toString());
+                Toast.makeText(getApplicationContext(), playerhand.getCard(3).toPrettyString(), Toast.LENGTH_LONG).show();
                 playerCard4View.setVisibility(View.VISIBLE);
                 Drawable playerCard4Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(3).toString(), "drawable", getPackageName()), null);
                 playerCard4View.setImageDrawable(playerCard4Id);
@@ -178,6 +182,7 @@ public class BlackJackActivity extends AppCompatActivity {
             case 5:
                 // 5th Card in Hand
                 Log.d(getClass().toString(), "Player 5 - " + playerhand.getCard(4).toString());
+                Toast.makeText(getApplicationContext(), playerhand.getCard(4).toPrettyString(), Toast.LENGTH_LONG).show();
                 playerCard5View.setVisibility(View.VISIBLE);
                 Drawable playerCard5Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(4).toString(), "drawable", getPackageName()), null);
                 playerCard5View.setImageDrawable(playerCard5Id);
@@ -187,6 +192,7 @@ public class BlackJackActivity extends AppCompatActivity {
             case 6:
                 // 6th Card in Hand
                 Log.d(getClass().toString(), "Player 6 - " + playerhand.getCard(5).toString());
+                Toast.makeText(getApplicationContext(), playerhand.getCard(5).toPrettyString(), Toast.LENGTH_LONG).show();
                 playerCard6View.setVisibility(View.VISIBLE);
                 Drawable playerCard6Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(5).toString(), "drawable", getPackageName()), null);
                 playerCard6View.setImageDrawable(playerCard6Id);
@@ -195,7 +201,8 @@ public class BlackJackActivity extends AppCompatActivity {
 
             case 7:
                 // 7th Card in Hand
-                Log.d(getClass().toString(), "Player 5 - " + playerhand.getCard(6).toString());
+                Log.d(getClass().toString(), "Player 7 - " + playerhand.getCard(6).toString());
+                Toast.makeText(getApplicationContext(), playerhand.getCard(6).toPrettyString(), Toast.LENGTH_LONG).show();
                 playerCard7View.setVisibility(View.VISIBLE);
                 Drawable playerCard7Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(6).toString(), "drawable", getPackageName()), null);
                 playerCard7View.setImageDrawable(playerCard7Id);
@@ -204,7 +211,8 @@ public class BlackJackActivity extends AppCompatActivity {
 
             case 8:
                 // 8th Card in Hand
-                Log.d(getClass().toString(), "Player 6 - " + playerhand.getCard(7).toString());
+                Log.d(getClass().toString(), "Player 8 - " + playerhand.getCard(7).toString());
+                Toast.makeText(getApplicationContext(), playerhand.getCard(7).toPrettyString(), Toast.LENGTH_LONG).show();
                 playerCard8View.setVisibility(View.VISIBLE);
                 Drawable playerCard8Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(7).toString(), "drawable", getPackageName()), null);
                 playerCard8View.setImageDrawable(playerCard8Id);
@@ -338,7 +346,6 @@ public class BlackJackActivity extends AppCompatActivity {
             finish();
             startActivity(intent);
         }
-        dealButton.performClick();
     }
 
     public void playerWins(){
