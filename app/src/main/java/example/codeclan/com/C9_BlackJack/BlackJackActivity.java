@@ -232,6 +232,7 @@ public class BlackJackActivity extends AppCompatActivity {
             dealButtonLayout.setVisibility(View.INVISIBLE);
             twistnstickButtonLayout.setVisibility(View.INVISIBLE);
             newgameButtonLayout.setVisibility(View.VISIBLE);
+            playerText.setText("Player has :- " + playerhand.getBlackjackValue() + " -- BUST");
             computerWins();
         } else if (playerTotalCheck == 21) {
             stickButton.performClick();
