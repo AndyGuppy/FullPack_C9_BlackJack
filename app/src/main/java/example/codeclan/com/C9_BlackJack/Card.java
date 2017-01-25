@@ -113,5 +113,9 @@ public class Card
   public String toString() {
     return getCardStringValue() + getCardStringSuit();
   }
-  
+
+  @Override
+  public String toPrettyString() {
+    return getCardStringValue() + "  of  " + getCardStringSuit();
+  }
 }
