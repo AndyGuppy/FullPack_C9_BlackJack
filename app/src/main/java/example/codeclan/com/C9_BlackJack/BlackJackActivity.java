@@ -229,6 +229,9 @@ public class BlackJackActivity extends AppCompatActivity {
             Drawable computerCard2Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(1).toString(), "drawable", getPackageName()), null);
             computerCard2View.setImageDrawable(computerCard2Id);
             computerCard2View.setVisibility(View.VISIBLE);
+            dealButtonLayout.setVisibility(View.INVISIBLE);
+            twistnstickButtonLayout.setVisibility(View.INVISIBLE);
+            newgameButtonLayout.setVisibility(View.VISIBLE);
             computerWins();
         } else if (playerTotalCheck == 21) {
             stickButton.performClick();
