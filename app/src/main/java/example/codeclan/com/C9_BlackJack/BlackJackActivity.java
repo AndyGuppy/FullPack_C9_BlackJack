@@ -225,7 +225,11 @@ public class BlackJackActivity extends AppCompatActivity {
         // check total and display
         playerText.setText("Player has :- " + playerTotalCheck);
         if (playerTotalCheck > 21) {
-            playerWins();
+            // Reveal Second computer card
+            Drawable computerCard2Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(1).toString(), "drawable", getPackageName()), null);
+            computerCard2View.setImageDrawable(computerCard2Id);
+            computerCard2View.setVisibility(View.VISIBLE);
+            computerWins();
         } else if (playerTotalCheck == 21) {
             stickButton.performClick();
         }
@@ -319,29 +323,28 @@ public class BlackJackActivity extends AppCompatActivity {
             computerTotalCheck = computerhand.getBlackjackValue();
 
             //display computer score
-            computerText.setText("Player has :- " + computerTotalCheck);
+            computerText.setText("Cmputer has :- " + computerTotalCheck);
         }
 
-
-        if ((computerTotalCheck >= playerTotalCheck) && (computerTotalCheck <= 21)) {
-           computerWins();;
+        // who is the winner
+        if (((computerTotalCheck >= playerTotalCheck) && (computerTotalCheck <= 21) ) || (playerTotalCheck > 21)) {
+           computerWins();
 
         } else if (computerTotalCheck > 21) {
             playerWins();
         }
-        // else computer wins
 
-        // Display winner
     }
 
     public void onResetButtonClicked(View button) {
 
         if (android.os.Build.VERSION.SDK_INT >= 11){
-//Code for recreate
+            //Code for recreate, newer than android revision 11
+            //resets the game as if it was just started
             recreate();
 
         }else{
-//Code for Intent
+            //Code for Intent
             Intent intent = getIntent();
             finish();
             startActivity(intent);
