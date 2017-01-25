@@ -327,7 +327,7 @@ public class BlackJackActivity extends AppCompatActivity {
             computerTotalCheck = computerhand.getBlackjackValue();
 
             //display computer score
-            computerText.setText("Cmputer has :- " + computerTotalCheck);
+            computerText.setText("Computer has :- " + computerTotalCheck);
         }
 
         // who is the winner
