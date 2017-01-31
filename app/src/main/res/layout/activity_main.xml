@@ -37,7 +37,7 @@
         android:focusable="false"
         android:layout_gravity="center">
         <ImageView
-            android:id="@+id/playerCard1View"
+            android:id="@+id/playerCardView1"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -48,7 +48,7 @@
             android:visibility="visible"
             android:adjustViewBounds="false" />
         <ImageView
-            android:id="@+id/playerCard2View"
+            android:id="@+id/playerCardView2"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -58,7 +58,7 @@
             android:src="@drawable/cardback"
             android:visibility="visible"/>
         <ImageView
-            android:id="@+id/playerCard3View"
+            android:id="@+id/playerCardView3"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -69,7 +69,7 @@
             android:visibility="invisible"/>
 
         <ImageView
-            android:id="@+id/playerCard4View"
+            android:id="@+id/playerCardView4"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -90,7 +90,7 @@
         android:layout_gravity="center">
 
         <ImageView
-            android:id="@+id/playerCard5View"
+            android:id="@+id/playerCardView5"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -100,7 +100,7 @@
             android:src="@drawable/cardback"
             android:visibility="invisible"/>
         <ImageView
-            android:id="@+id/playerCard6View"
+            android:id="@+id/playerCardView6"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -110,7 +110,7 @@
             android:src="@drawable/cardback"
             android:visibility="invisible"/>
         <ImageView
-            android:id="@+id/playerCard7View"
+            android:id="@+id/playerCardView7"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -120,7 +120,7 @@
             android:src="@drawable/cardback"
             android:visibility="invisible"/>
         <ImageView
-            android:id="@+id/playerCard8View"
+            android:id="@+id/playerCardView8"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -161,7 +161,7 @@
         android:layout_gravity="bottom">
 
         <ImageView
-            android:id="@+id/computerCard1View"
+            android:id="@+id/computerCardView1"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -170,7 +170,7 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/cardback" />
         <ImageView
-            android:id="@+id/computerCard2View"
+            android:id="@+id/computerCardView2"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -179,7 +179,7 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/cardback" />
         <ImageView
-            android:id="@+id/computerCard3View"
+            android:id="@+id/computerCardView3"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -190,7 +190,7 @@
             android:visibility="invisible"/>
 
         <ImageView
-            android:id="@+id/computerCard4View"
+            android:id="@+id/computerCardView4"
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
@@ -210,7 +210,7 @@
         android:layout_gravity="bottom">
 
         <ImageView
-            android:id="@+id/computerCard5View"
+            android:id="@+id/computerCardView5"
             android:layout_width="60dp"
             android:layout_height="90dp"
             android:layout_marginBottom="10dp"
@@ -220,7 +220,7 @@
             android:src="@drawable/cardback"
             android:visibility="invisible"/>
         <ImageView
-            android:id="@+id/computerCard6View"
+            android:id="@+id/computerCardView6"
             android:layout_width="60dp"
             android:layout_height="90dp"
             android:layout_marginBottom="10dp"
@@ -230,7 +230,7 @@
             android:src="@drawable/cardback"
             android:visibility="invisible"/>
         <ImageView
-            android:id="@+id/computerCard7View"
+            android:id="@+id/computerCardView7"
             android:layout_width="60dp"
             android:layout_height="90dp"
             android:layout_marginBottom="10dp"
@@ -240,7 +240,7 @@
             android:src="@drawable/cardback"
             android:visibility="invisible"/>
         <ImageView
-            android:id="@+id/computerCard8View"
+            android:id="@+id/computerCardView8"
             android:layout_width="60dp"
             android:layout_height="90dp"
             android:layout_marginBottom="10dp"

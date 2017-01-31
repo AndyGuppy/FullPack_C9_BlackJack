@@ -1,19 +1,18 @@
 package example.codeclan.com.C9_BlackJack;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+
+import java.util.ArrayList;
 
 /**
  * Created by Andy Guppy on 23/01/2017.
@@ -30,24 +29,26 @@ public class BlackJackActivity extends AppCompatActivity {
     Button dealButton;
     Button stickButton;
 
-    ImageView playerCard1View;
-    ImageView playerCard2View;
-    ImageView playerCard3View;
-    ImageView playerCard4View;
-    ImageView playerCard5View;
-    ImageView playerCard6View;
-    ImageView playerCard7View;
-    ImageView playerCard8View;
-    ImageView computerCard1View;
-    ImageView computerCard2View;
-    ImageView computerCard3View;
-    ImageView computerCard4View;
-    ImageView computerCard5View;
-    ImageView computerCard6View;
-    ImageView computerCard7View;
-    ImageView computerCard8View;
+    ArrayList<ImageView> playerCardList= new ArrayList<>();
+    ArrayList<ImageView> androidCardList= new ArrayList<>();
 
-    TextView resultText;
+
+//    ImageView playerCardView1;
+//    ImageView playerCardView2;
+//    ImageView playerCardView3;
+//    ImageView playerCardView4;
+//    ImageView playerCardView5;
+//    ImageView playerCardView6;
+//    ImageView playerCardView7;
+//    ImageView playerCardView8;
+//    ImageView computerCardView1;
+//    ImageView computerCardView2;
+//    ImageView computerCardView3;
+//    ImageView computerCardView4;
+//    ImageView computerCardView5;
+//    ImageView computerCardView6;
+//    ImageView computerCardView7;
+//    ImageView computerCardView8;
 
     LinearLayout dealButtonLayout;
     LinearLayout twistnstickButtonLayout;
@@ -55,9 +56,6 @@ public class BlackJackActivity extends AppCompatActivity {
 
     int playerTotalCheck;
     int computerTotalCheck;
-
-    Card playercard;
-    Card computercard;
 
     Deck deck = new Deck();
     BlackJackHand playerhand = new BlackJackHand();
@@ -74,28 +72,44 @@ public class BlackJackActivity extends AppCompatActivity {
         computerText = (TextView) findViewById(R.id.computerText);
 
         dealButton = (Button) findViewById(R.id.dealButton);
-        // Players card layout
-        playerCard1View = (ImageView) findViewById(R.id.playerCard1View);
-        playerCard2View = (ImageView) findViewById(R.id.playerCard2View);
-        playerCard3View = (ImageView) findViewById(R.id.playerCard3View);
-        playerCard4View = (ImageView) findViewById(R.id.playerCard4View);
-        playerCard5View = (ImageView) findViewById(R.id.playerCard5View);
-        playerCard6View = (ImageView) findViewById(R.id.playerCard6View);
-        // Computers card layout
-        computerCard1View = (ImageView) findViewById(R.id.computerCard1View);
-        computerCard2View = (ImageView) findViewById(R.id.computerCard2View);
-        computerCard3View = (ImageView) findViewById(R.id.computerCard3View);
-        computerCard4View = (ImageView) findViewById(R.id.computerCard4View);
-        computerCard5View = (ImageView) findViewById(R.id.computerCard5View);
-        computerCard6View = (ImageView) findViewById(R.id.computerCard6View);
-        computerCard7View = (ImageView) findViewById(R.id.computerCard7View);
-        computerCard8View = (ImageView) findViewById(R.id.computerCard8View);
+
+
+        // Layouts
+        for(int i=1; i<9; i++){
+            //players cards layouts
+            Integer id = getResources().getIdentifier("playerCardView" + i, "id", getPackageName());
+            playerCardList.add((ImageView) findViewById(id));
+
+
+            //computer cards layouts
+            id = getResources().getIdentifier("computerCardView" + i, "id", getPackageName());
+            androidCardList.add((ImageView) findViewById(id));
+        }
+
+//       //  Players card layout
+//        playerCardView1 = (ImageView) findViewById(R.id.playerCardView1);
+//        playerCardView2 = (ImageView) findViewById(R.id.playerCardView2);
+//        playerCardView3 = (ImageView) findViewById(R.id.playerCardView3);
+//        playerCardView4 = (ImageView) findViewById(R.id.playerCardView4);
+//        playerCardView5 = (ImageView) findViewById(R.id.playerCardView5);
+//        playerCardView6 = (ImageView) findViewById(R.id.playerCardView6);
+//
+//
+//        // Computers card layout
+//        computerCardView1 = (ImageView) findViewById(R.id.computerCardView1);
+//        computerCardView2 = (ImageView) findViewById(R.id.computerCardView2);
+//        computerCardView3 = (ImageView) findViewById(R.id.computerCardView3);
+//        computerCardView4 = (ImageView) findViewById(R.id.computerCardView4);
+//        computerCardView5 = (ImageView) findViewById(R.id.computerCardView5);
+//        computerCardView6 = (ImageView) findViewById(R.id.computerCardView6);
+//        computerCardView7 = (ImageView) findViewById(R.id.computerCardView7);
+//        computerCardView8 = (ImageView) findViewById(R.id.computerCardView8);
 
         dealButtonLayout = (LinearLayout) findViewById(R.id.buttonLayout01);
         twistnstickButtonLayout  = (LinearLayout) findViewById(R.id.buttonLayout02);
         newgameButtonLayout  = (LinearLayout) findViewById(R.id.buttonLayout03);
 
-        dealButton.performClick();
+          dealButton.performClick();
     }
 
     public void onDealButtonClicked(View button) {
@@ -119,18 +133,23 @@ public class BlackJackActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), playerhand.getCard(0).toPrettyString(), Toast.LENGTH_SHORT).show();
         Log.d(getClass().toString(), "Player 2 - " + playerhand.getCard(1).toString());
         Toast.makeText(getApplicationContext(), playerhand.getCard(1).toPrettyString(), Toast.LENGTH_SHORT).show();
+
+        //Display the players cards
+        displayPlayerCards(playerhand.getCardCount());
+
         //Display the first player card
-        Drawable playerCard1Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(0).toString(), "drawable", getPackageName()), null);
-        playerCard1View.setImageDrawable(playerCard1Id);
-        playerCard1View.setVisibility(View.VISIBLE);
+//        Drawable playerCardId = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(0).toString(), "drawable", getPackageName()), null);
+//        playerCardList.get(0).setImageDrawable(playerCardId);
+//        playerCardList.get(0).setVisibility(View.VISIBLE);
+
 
         //Display the Second Player card
-        Drawable playerCard2Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(1).toString(), "drawable", getPackageName()), null);
-        playerCard2View.setImageDrawable(playerCard2Id);
-        playerCard2View.setVisibility(View.VISIBLE);
+//        playerCardId = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(1).toString(), "drawable", getPackageName()), null);
+//        playerCardList.get(1).setImageDrawable(playerCardId);
+//        playerCardList.get(1).setVisibility(View.VISIBLE);
 
         //Add Player score up and display
-        playerText.setText("Player has :- " + playerhand.getBlackjackValue());
+        playerText.setText("Player has :- " + (int) playerhand.getBlackjackValue());
 
         // deal 2 cards to computer hand ( only one visible to player )
         computerhand.addCard(deck.dealCard());
@@ -140,13 +159,17 @@ public class BlackJackActivity extends AppCompatActivity {
         Log.d(getClass().toString(), "Computer 1 - " + computerhand.getCard(0).toString());
         Log.d(getClass().toString(), "Computer 2 - " + computerhand.getCard(1).toString());
 
+        //Display the players cards
+        displayAndroidCards(computerhand.getCardCount()-1);
+
         //Display the first computer card
-        Drawable computerCard1Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(0).toString(), "drawable", getPackageName()), null);
-        computerCard1View.setImageDrawable(computerCard1Id);
-        computerCard1View.setVisibility(View.VISIBLE);
+//        Drawable computerCard1Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(0).toString(), "drawable", getPackageName()), null);
+//        computerCardView1.setImageDrawable(computerCard1Id);
+//        computerCardView1.setVisibility(View.VISIBLE);
         // Second Computer card in view but turn over so player cannot see
 
     }
+
 
     public void onTwistButtonClicked(View button) {
 
@@ -158,82 +181,89 @@ public class BlackJackActivity extends AppCompatActivity {
         // deal another card to player ( max 8 cards ) - Time permits will factor in Card 9
         playerhand.addCard(deck.dealCard());
 
-        //Display the next Player Card
-        switch (playerhand.getCardCount()) {
-            case 3:
-                // 3rd Card in Hand
-                Log.d(getClass().toString(), "Player 3 - " + playerhand.getCard(2).toString());
-                Toast.makeText(getApplicationContext(), playerhand.getCard(2).toPrettyString(), Toast.LENGTH_SHORT).show();
-                playerCard3View.setVisibility(View.VISIBLE);
-                Drawable playerCard3Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(2).toString(), "drawable", getPackageName()), null);
-                playerCard3View.setImageDrawable(playerCard3Id);
+        displayPlayerCards(playerhand.getCardCount());
 
-                break;
-            case 4:
-                // 4th Card in Hand
-                Log.d(getClass().toString(), "Player 4 - " + playerhand.getCard(3).toString());
-                Toast.makeText(getApplicationContext(), playerhand.getCard(3).toPrettyString(), Toast.LENGTH_SHORT).show();
-                playerCard4View.setVisibility(View.VISIBLE);
-                Drawable playerCard4Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(3).toString(), "drawable", getPackageName()), null);
-                playerCard4View.setImageDrawable(playerCard4Id);
-
-                break;
-
-            case 5:
-                // 5th Card in Hand
-                Log.d(getClass().toString(), "Player 5 - " + playerhand.getCard(4).toString());
-                Toast.makeText(getApplicationContext(), playerhand.getCard(4).toPrettyString(), Toast.LENGTH_SHORT).show();
-                playerCard5View.setVisibility(View.VISIBLE);
-                Drawable playerCard5Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(4).toString(), "drawable", getPackageName()), null);
-                playerCard5View.setImageDrawable(playerCard5Id);
-
-                break;
-
-            case 6:
-                // 6th Card in Hand
-                Log.d(getClass().toString(), "Player 6 - " + playerhand.getCard(5).toString());
-                Toast.makeText(getApplicationContext(), playerhand.getCard(5).toPrettyString(), Toast.LENGTH_SHORT).show();
-                playerCard6View.setVisibility(View.VISIBLE);
-                Drawable playerCard6Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(5).toString(), "drawable", getPackageName()), null);
-                playerCard6View.setImageDrawable(playerCard6Id);
-
-                break;
-
-            case 7:
-                // 7th Card in Hand
-                Log.d(getClass().toString(), "Player 7 - " + playerhand.getCard(6).toString());
-                Toast.makeText(getApplicationContext(), playerhand.getCard(6).toPrettyString(), Toast.LENGTH_SHORT).show();
-                playerCard7View.setVisibility(View.VISIBLE);
-                Drawable playerCard7Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(6).toString(), "drawable", getPackageName()), null);
-                playerCard7View.setImageDrawable(playerCard7Id);
-
-                break;
-
-            case 8:
-                // 8th Card in Hand
-                Log.d(getClass().toString(), "Player 8 - " + playerhand.getCard(7).toString());
-                Toast.makeText(getApplicationContext(), playerhand.getCard(7).toPrettyString(), Toast.LENGTH_SHORT).show();
-                playerCard8View.setVisibility(View.VISIBLE);
-                Drawable playerCard8Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(7).toString(), "drawable", getPackageName()), null);
-                playerCard8View.setImageDrawable(playerCard8Id);
-
-                break;
-
-        }
+//        //we need to dislay all players cards
+//        int numPlayCards = playerhand.getCardCount();
+//
+//
+//        //Display the next Player Card
+//        switch (playerhand.getCardCount()) {
+//            case 3:
+//                // 3rd Card in Hand
+//                Log.d(getClass().toString(), "Player 3 - " + playerhand.getCard(2).toString());
+//                Toast.makeText(getApplicationContext(), playerhand.getCard(2).toPrettyString(), Toast.LENGTH_SHORT).show();
+//                playerCardView3.setVisibility(View.VISIBLE);
+//                Drawable playerCard3Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(2).toString(), "drawable", getPackageName()), null);
+//                playerCardView3.setImageDrawable(playerCard3Id);
+//
+//                break;
+//            case 4:
+//                // 4th Card in Hand
+//                Log.d(getClass().toString(), "Player 4 - " + playerhand.getCard(3).toString());
+//                Toast.makeText(getApplicationContext(), playerhand.getCard(3).toPrettyString(), Toast.LENGTH_SHORT).show();
+//                playerCardView4.setVisibility(View.VISIBLE);
+//                Drawable playerCard4Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(3).toString(), "drawable", getPackageName()), null);
+//                playerCardView4.setImageDrawable(playerCard4Id);
+//
+//                break;
+//
+//            case 5:
+//                // 5th Card in Hand
+//                Log.d(getClass().toString(), "Player 5 - " + playerhand.getCard(4).toString());
+//                Toast.makeText(getApplicationContext(), playerhand.getCard(4).toPrettyString(), Toast.LENGTH_SHORT).show();
+//                playerCardView5.setVisibility(View.VISIBLE);
+//                Drawable playerCard5Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(4).toString(), "drawable", getPackageName()), null);
+//                playerCardView5.setImageDrawable(playerCard5Id);
+//
+//                break;
+//
+//            case 6:
+//                // 6th Card in Hand
+//                Log.d(getClass().toString(), "Player 6 - " + playerhand.getCard(5).toString());
+//                Toast.makeText(getApplicationContext(), playerhand.getCard(5).toPrettyString(), Toast.LENGTH_SHORT).show();
+//                playerCardView6.setVisibility(View.VISIBLE);
+//                Drawable playerCard6Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(5).toString(), "drawable", getPackageName()), null);
+//                playerCardView6.setImageDrawable(playerCard6Id);
+//
+//                break;
+//
+//            case 7:
+//                // 7th Card in Hand
+//                Log.d(getClass().toString(), "Player 7 - " + playerhand.getCard(6).toString());
+//                Toast.makeText(getApplicationContext(), playerhand.getCard(6).toPrettyString(), Toast.LENGTH_SHORT).show();
+//                playerCardView7.setVisibility(View.VISIBLE);
+//                Drawable playerCard7Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(6).toString(), "drawable", getPackageName()), null);
+//                playerCardView7.setImageDrawable(playerCard7Id);
+//
+//                break;
+//
+//            case 8:
+//                // 8th Card in Hand
+//                Log.d(getClass().toString(), "Player 8 - " + playerhand.getCard(7).toString());
+//                Toast.makeText(getApplicationContext(), playerhand.getCard(7).toPrettyString(), Toast.LENGTH_SHORT).show();
+//                playerCardView8.setVisibility(View.VISIBLE);
+//                Drawable playerCard8Id = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(7).toString(), "drawable", getPackageName()), null);
+//                playerCardView8.setImageDrawable(playerCard8Id);
+//
+//                break;
+//
+//        }
 
         playerTotalCheck = playerhand.getBlackjackValue();
         // check total and display
         playerText.setText("Player has :- " + playerTotalCheck);
         if (playerTotalCheck > 21) {
             // Reveal Second computer card
-            Drawable computerCard2Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(1).toString(), "drawable", getPackageName()), null);
-            computerCard2View.setImageDrawable(computerCard2Id);
-            computerCard2View.setVisibility(View.VISIBLE);
+            displayAndroidCards(computerhand.getCardCount());
+//            Drawable computerCard2Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(1).toString(), "drawable", getPackageName()), null);
+//            computerCardView2.setImageDrawable(computerCard2Id);
+//            computerCardView2.setVisibility(View.VISIBLE);
             dealButtonLayout.setVisibility(View.INVISIBLE);
             twistnstickButtonLayout.setVisibility(View.INVISIBLE);
             newgameButtonLayout.setVisibility(View.VISIBLE);
             playerText.setText("Player has :- " + playerhand.getBlackjackValue() + " -- BUST");
-            computerWins();
+            winner(false);
         } else if (playerTotalCheck == 21) {
             stickButton.performClick();
         }
@@ -248,9 +278,12 @@ public class BlackJackActivity extends AppCompatActivity {
         newgameButtonLayout.setVisibility(View.VISIBLE);
 
         // Reveal Second computer card
-        Drawable computerCard2Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(1).toString(), "drawable", getPackageName()), null);
-        computerCard2View.setImageDrawable(computerCard2Id);
-        computerCard2View.setVisibility(View.VISIBLE);
+        displayAndroidCards(computerhand.getCardCount());
+
+
+//        Drawable computerCard2Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(1).toString(), "drawable", getPackageName()), null);
+//        computerCardView2.setImageDrawable(computerCard2Id);
+//        computerCardView2.setVisibility(View.VISIBLE);
 
         //Add Computer score up and display
         computerText.setText("Player has :- " + computerhand.getBlackjackValue());
@@ -266,61 +299,63 @@ public class BlackJackActivity extends AppCompatActivity {
             // Computer deals another card;
             computerhand.addCard(deck.dealCard());
 
-            switch (computerhand.getCardCount()) {
-                case 3:
-                    // 3rd Card in Hand
-                    Log.d(getClass().toString(), "computer 3 - " + computerhand.getCard(2).toString());
-                    computerCard3View.setVisibility(View.VISIBLE);
-                    Drawable computerCard3Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(2).toString(), "drawable", getPackageName()), null);
-                    computerCard3View.setImageDrawable(computerCard3Id);
+            displayAndroidCards(computerhand.getCardCount()-1);
 
-                    break;
-                case 4:
-                    // 4th Card in Hand
-                    Log.d(getClass().toString(), "computer 4 - " + computerhand.getCard(3).toString());
-                    computerCard4View.setVisibility(View.VISIBLE);
-                    Drawable computerCard4Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(3).toString(), "drawable", getPackageName()), null);
-                    computerCard4View.setImageDrawable(computerCard4Id);
-
-                    break;
-
-                case 5:
-                    // 5th Card in Hand
-                    Log.d(getClass().toString(), "computer 5 - " + computerhand.getCard(4).toString());
-                    computerCard5View.setVisibility(View.VISIBLE);
-                    Drawable computerCard5Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(4).toString(), "drawable", getPackageName()), null);
-                    computerCard5View.setImageDrawable(computerCard5Id);
-
-                    break;
-
-                case 6:
-                    // 6th Card in Hand
-                    Log.d(getClass().toString(), "computer 6 - " + computerhand.getCard(5).toString());
-                    computerCard6View.setVisibility(View.VISIBLE);
-                    Drawable computerCard6Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(5).toString(), "drawable", getPackageName()), null);
-                    computerCard6View.setImageDrawable(computerCard6Id);
-
-                    break;
-
-                case 7:
-                    // 7th Card in Hand
-                    Log.d(getClass().toString(), "computer 7 - " + computerhand.getCard(6).toString());
-                    computerCard7View.setVisibility(View.VISIBLE);
-                    Drawable computerCard7Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(6).toString(), "drawable", getPackageName()), null);
-                    computerCard7View.setImageDrawable(computerCard7Id);
-
-                    break;
-
-                case 8:
-                    // 8th Card in Hand
-                    Log.d(getClass().toString(), "computer 8 - " + computerhand.getCard(7).toString());
-                    computerCard8View.setVisibility(View.VISIBLE);
-                    Drawable computerCard8Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(7).toString(), "drawable", getPackageName()), null);
-                    computerCard8View.setImageDrawable(computerCard8Id);
-
-                    break;
-
-            }
+//            switch (computerhand.getCardCount()) {
+//                case 3:
+//                    // 3rd Card in Hand
+//                    Log.d(getClass().toString(), "computer 3 - " + computerhand.getCard(2).toString());
+//                    computerCardView3.setVisibility(View.VISIBLE);
+//                    Drawable computerCard3Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(2).toString(), "drawable", getPackageName()), null);
+//                    computerCardView3.setImageDrawable(computerCard3Id);
+//
+//                    break;
+//                case 4:
+//                    // 4th Card in Hand
+//                    Log.d(getClass().toString(), "computer 4 - " + computerhand.getCard(3).toString());
+//                    computerCardView4.setVisibility(View.VISIBLE);
+//                    Drawable computerCard4Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(3).toString(), "drawable", getPackageName()), null);
+//                    computerCardView4.setImageDrawable(computerCard4Id);
+//
+//                    break;
+//
+//                case 5:
+//                    // 5th Card in Hand
+//                    Log.d(getClass().toString(), "computer 5 - " + computerhand.getCard(4).toString());
+//                    computerCardView5.setVisibility(View.VISIBLE);
+//                    Drawable computerCard5Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(4).toString(), "drawable", getPackageName()), null);
+//                    computerCardView5.setImageDrawable(computerCard5Id);
+//
+//                    break;
+//
+//                case 6:
+//                    // 6th Card in Hand
+//                    Log.d(getClass().toString(), "computer 6 - " + computerhand.getCard(5).toString());
+//                    computerCardView6.setVisibility(View.VISIBLE);
+//                    Drawable computerCard6Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(5).toString(), "drawable", getPackageName()), null);
+//                    computerCardView6.setImageDrawable(computerCard6Id);
+//
+//                    break;
+//
+//                case 7:
+//                    // 7th Card in Hand
+//                    Log.d(getClass().toString(), "computer 7 - " + computerhand.getCard(6).toString());
+//                    computerCardView7.setVisibility(View.VISIBLE);
+//                    Drawable computerCard7Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(6).toString(), "drawable", getPackageName()), null);
+//                    computerCardView7.setImageDrawable(computerCard7Id);
+//
+//                    break;
+//
+//                case 8:
+//                    // 8th Card in Hand
+//                    Log.d(getClass().toString(), "computer 8 - " + computerhand.getCard(7).toString());
+//                    computerCardView8.setVisibility(View.VISIBLE);
+//                    Drawable computerCard8Id = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(7).toString(), "drawable", getPackageName()), null);
+//                    computerCardView8.setImageDrawable(computerCard8Id);
+//
+//                    break;
+//
+//            }
 
 
             // get Computer hand score
@@ -332,10 +367,9 @@ public class BlackJackActivity extends AppCompatActivity {
 
         // who is the winner
         if (((computerTotalCheck >= playerTotalCheck) && (computerTotalCheck <= 21) ) || (playerTotalCheck > 21)) {
-           computerWins();
-
+           winner(false);
         } else if (computerTotalCheck > 21) {
-            playerWins();
+            winner(true);
         }
 
     }
@@ -355,33 +389,75 @@ public class BlackJackActivity extends AppCompatActivity {
         }
     }
 
-    public void playerWins(){
+//    public void playerWins(){
+//
+//        AlertDialog alertDialog = new AlertDialog.Builder(BlackJackActivity.this).create();
+//        alertDialog.setTitle("We Have a Winner !!");
+//        alertDialog.setMessage("Player wins with " + playerhand.getBlackjackValue());
+//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//        alertDialog.show();
+//
+//    }
+//    public void computerWins(){
+//
+//        AlertDialog alertDialog = new AlertDialog.Builder(BlackJackActivity.this).create();
+//        alertDialog.setTitle("We Have a Winner !!");
+//        alertDialog.setMessage("Android beat you with " + computerhand.getBlackjackValue());
+//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//        alertDialog.show();
+//
+//    }
+
+    private void winner(Boolean player){
 
         AlertDialog alertDialog = new AlertDialog.Builder(BlackJackActivity.this).create();
         alertDialog.setTitle("We Have a Winner !!");
-        alertDialog.setMessage("Player wins with " + playerhand.getBlackjackValue());
+        if (player){
+            alertDialog.setMessage("Player wins with ..  " + playerhand.getBlackjackValue());}
+        else {
+            alertDialog.setMessage("Android beat you with " + computerhand.getBlackjackValue());
+        }
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-        alertDialog.show();
 
-    }
-    public void computerWins(){
-
-        AlertDialog alertDialog = new AlertDialog.Builder(BlackJackActivity.this).create();
-        alertDialog.setTitle("We Have a Winner !!");
-        alertDialog.setMessage("Android beat you with " + computerhand.getBlackjackValue());
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
         alertDialog.show();
 
     }
 
+    private void displayPlayerCards(int numCards) {
+
+        Drawable playerCardId;
+        for (int i = 0; i < numCards; i++) {
+            playerCardId = getResources().getDrawable(getResources().getIdentifier(playerhand.getCard(i).toString(), "drawable", getPackageName()), null);
+            playerCardList.get(i).setImageDrawable(playerCardId);
+            playerCardList.get(i).setVisibility(View.VISIBLE);
+        }
+        Toast.makeText(getApplicationContext(), playerhand.getCard(numCards-1).toPrettyString(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void displayAndroidCards(int numCards) {
+
+        Drawable androidCardId;
+        for (int i = 0; i < numCards; i++) {
+            androidCardId = getResources().getDrawable(getResources().getIdentifier(computerhand.getCard(i).toString(), "drawable", getPackageName()), null);
+            androidCardList.get(i).setImageDrawable(androidCardId);
+            androidCardList.get(i).setVisibility(View.VISIBLE);
+        }
+
+    }
 }
